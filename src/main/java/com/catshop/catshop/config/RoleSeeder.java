@@ -3,11 +3,13 @@ package com.catshop.catshop.config;
 import com.catshop.catshop.entity.Role;
 import com.catshop.catshop.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class RoleSeeder implements CommandLineRunner {
@@ -20,9 +22,10 @@ public class RoleSeeder implements CommandLineRunner {
             if(!roleRepository.existsByRoleName(roles)){
                 Role role = Role.builder().roleName(roles).build();
                 roleRepository.save(role);
-                System.out.println("Insered Role: "+roles);
+                log.info("Insered Role: "+roles);
+
             }else {
-                System.out.println("Role " + roles +" already existed!");
+                log.info("Role " + roles +" already existed!");
             }
         }
     }

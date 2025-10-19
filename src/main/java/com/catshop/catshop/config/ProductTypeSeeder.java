@@ -3,11 +3,13 @@ package com.catshop.catshop.config;
 import com.catshop.catshop.entity.ProductType;
 import com.catshop.catshop.repository.ProductTypeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class ProductTypeSeeder implements CommandLineRunner {
@@ -21,10 +23,10 @@ public class ProductTypeSeeder implements CommandLineRunner {
             if(!productTypeRepository.existsByTypeName(typeName)){
                 ProductType type = ProductType.builder().typeName(typeName).build();
                 productTypeRepository.save(type);
-                System.out.println("Inserted default type: " + typeName);
+                log.info("Inserted default type: " + typeName);
             }
             else {
-                System.out.println("Type already exists: " + typeName);
+                log.info("Type already exists: " + typeName);
             }
         }
     }
