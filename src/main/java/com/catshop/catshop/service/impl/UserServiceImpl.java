@@ -24,6 +24,15 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final RoleRepository roleRepository;
 
+
+    @Override
+    public User getUserEntityByEmail(String email) {
+        User user =  userRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("Không tài khoản với email: "+ email)
+        );
+        return user;
+    }
+
     @Override
     public UserResponse getUserById(Long id) {
         User user = userRepository.findById(id)
