@@ -10,7 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class ApiKeyInterceptor implements HandlerInterceptor {
 
-    private static final String API_KEY = "secret123"; // API Key giả lập
+    private static final String API_KEY = "secret123";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

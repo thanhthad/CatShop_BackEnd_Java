@@ -28,7 +28,7 @@ public class CatDetailServiceImpl implements CatDetailService {
 
     @Override
     @Transactional
-    public CatDetailResponse insert(CatDetailRequest catDetailRequest) {
+    public CatDetailResponse insert(CatDetailRequest catDetailRequest){
         Long catId = catDetailRequest.getCatId();
 
         Product product = productRepository.findById(catId)
@@ -43,7 +43,7 @@ public class CatDetailServiceImpl implements CatDetailService {
         }
 
         CatDetails catDetails = CatDetails.builder()
-                .product(product) // ✅ QUAN TRỌNG
+                .product(product)
                 .breed(catDetailRequest.getBreed())
                 .age(catDetailRequest.getAge())
                 .gender(catDetailRequest.getGender())
