@@ -58,27 +58,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponse insertUser(UserRequest userRequest) {
-        if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
-            throw new ResourceNotFoundException("Email đã tồn tại: " + userRequest.getEmail());
-        }
-
-        if (userRepository.findByPhoneNumber(userRequest.getPhone()).isPresent()) {
-            throw new ResourceNotFoundException("Số điện thoại đã tồn tại: " + userRequest.getPhone());
-        }
-
-        Role role = roleRepository.findById(1L)
-                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy Role với id: " + 1L));
-
-        User user = userMapper.FromUserRequestToUser(userRequest);
-        user.setRole(role);
-
-        User savedUser = userRepository.save(user);
-        return userMapper.FromUserToUserResponse(savedUser);
-    }
-
-    @Override
-    @Transactional
     public UserResponse updateUserByUserId(Long userId, UserRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException(

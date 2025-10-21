@@ -17,8 +17,6 @@ public interface UserService {
 
     UserResponse getUserByEmail(String email);
 
-    UserResponse insertUser(UserRequest userRequest);
-
     UserResponse updateUserByUserId(Long userId, UserRequest request);
 
     void deleteUserByUserId(Long userId);
