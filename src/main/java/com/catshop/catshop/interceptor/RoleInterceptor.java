@@ -25,7 +25,9 @@ public class RoleInterceptor implements HandlerInterceptor {
             log.warn("Unauthorized access attempt: missing X-USER-EMAIL header, URI={}, Method={}",
                     request.getRequestURI(), request.getMethod());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write("Unauthorized: Missing X-USER-EMAIL header!");
+            response.getWriter().flush();
             return false;
         }
 
@@ -35,7 +37,9 @@ public class RoleInterceptor implements HandlerInterceptor {
             log.warn("Unauthorized access attempt: user not found, email={}, URI={}, Method={}",
                     email, request.getRequestURI(), request.getMethod());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write("Unauthorized: User not found!");
+            response.getWriter().flush();
             return false;
         }
 
@@ -47,7 +51,9 @@ public class RoleInterceptor implements HandlerInterceptor {
         if (method.equalsIgnoreCase("DELETE") && !roleName.equalsIgnoreCase("Admin")) {
             log.warn("Forbidden DELETE attempt: user={}, role={}, URI={}", email, roleName, uri);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write("Forbidden: Only Admin can delete users!");
+            response.getWriter().flush();
             return false;
         }
 

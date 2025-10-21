@@ -48,17 +48,6 @@ public class UserController {
         );
     }
 
-    // Tạo user mới  checked
-    @PostMapping
-    public ResponseEntity<ApiResponse<String>> register(@Valid @RequestBody UserRequest request) {
-        if (!authService.register(request)){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    ApiResponse.error(404,"Can not create user")
-            );
-        }
-        return ResponseEntity.ok(ApiResponse.success("User created successfully","User created successfully"));
-    }
-
     // Update user theo id
     // Throwing Exception checked
     //

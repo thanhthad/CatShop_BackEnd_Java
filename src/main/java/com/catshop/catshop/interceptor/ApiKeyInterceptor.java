@@ -14,14 +14,16 @@ public class ApiKeyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         String apiKey = request.getHeader("X-API-KEY");
 
         if (apiKey == null || !apiKey.equals(API_KEY)) {
-            log.warn("Unauthorized API request: missing/invalid API key, method={}, URI={}",
+            log.warn("🚫 Unauthorized API request: missing/invalid API key, method={}, URI={}",
                     request.getMethod(), request.getRequestURI());
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
-            response.getWriter().write("Unauthorized: Missing or invalid API Key!");
+
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write("{\"error\": \"Unauthorized: Missing or invalid API Key!\"}");
+            response.getWriter().flush();
             return false;
         }
 
